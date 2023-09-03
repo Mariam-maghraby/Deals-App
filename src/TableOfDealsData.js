@@ -14,7 +14,7 @@ const Example = () => {
     () => [
       {
         id: 'deal', //id used to define `group` column
-        header: 'Deal',
+        header: 'Deals',
         columns: [
           {
             accessorKey: 'dealName', //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
@@ -28,7 +28,7 @@ const Example = () => {
             filterVariant: 'select',
             mantineFilterRangeSliderProps: {
               color: 'indigo',
-              
+
             },
             //custom conditional format and styling
             Cell: ({ cell }) => (
@@ -37,26 +37,21 @@ const Example = () => {
                   backgroundColor:
                     cell.getValue() === 'Lost'
                       ? theme.colors.red[9]
-                      : cell.getValue() ==='Negotiation' 
-                      ? theme.colors.violet[9]
-                      : cell.getValue() ==='Proposal' 
-                      ? theme.colors.green[9]
-                      : cell.getValue() ==='Won'
-                      ? theme.colors.yellow[9]
-                      : theme.colors.blue[9],
+                      : cell.getValue() === 'Negotiation'
+                        ? theme.colors.violet[9]
+                        : cell.getValue() === 'Proposal'
+                          ? theme.colors.green[9]
+                          : cell.getValue() === 'Won'
+                            ? theme.colors.yellow[9]
+                            : theme.colors.blue[9],
                   borderRadius: '4px',
                   color: '#fff',
                   maxWidth: '12ch',
                   padding: '4px',
-                  textAlign:'center',
+                  textAlign: 'center',
                 })}
               >
-                {cell.getValue()?.toLocaleString?.('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 0,
-                })}
+                {cell.getValue()}
               </Box>
             ),
           },
@@ -85,21 +80,9 @@ const Example = () => {
             ),
           },
           {
-            accessorKey: 'email', //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
-            enableClickToCopy: true,
-            header: 'Email',
-            size: 300,
-          },
-        ],
-      },
-      {
-        id: 'id',
-        header: 'Job Info',
-        columns: [
-          {
             accessorKey: 'salary',
             header: 'Value',
-            size: 200,
+            size: 150,
             filterVariant: 'range-slider',
             mantineFilterRangeSliderProps: {
               color: 'indigo',
@@ -119,12 +102,13 @@ const Example = () => {
                     cell.getValue() < 50_000
                       ? theme.colors.red[9]
                       : cell.getValue() >= 50_000 && cell.getValue() < 75_000
-                      ? theme.colors.yellow[9]
-                      : theme.colors.green[9],
+                        ? theme.colors.yellow[9]
+                        : theme.colors.green[9],
                   borderRadius: '4px',
                   color: '#fff',
                   maxWidth: '9ch',
                   padding: '4px',
+                  textAlign: 'center',
                 })}
               >
                 {cell.getValue()?.toLocaleString?.('en-US', {
@@ -137,25 +121,118 @@ const Example = () => {
             ),
           },
           {
-            accessorKey: 'jobTitle', //hey a simple column for once
-            header: 'Job Title',
-            filterVariant: 'multi-select',
-            size: 350,
+            accessorKey: 'email', //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
+            enableClickToCopy: true,
+            header: 'Email',
+            size: 300,
+          },
+          {
+            accessorKey: 'priority',
+            header: 'Priority',
+            size: 150,
+            filterVariant: 'select',
+            mantineFilterRangeSliderProps: {
+              color: 'indigo',
+
+            },
+            //custom conditional format and styling
+            Cell: ({ cell }) => (
+              <Box
+                sx={(theme) => ({
+                  backgroundColor:
+                    cell.getValue() === 'High'
+                      ? theme.colors.orange[9]
+                      : cell.getValue() === 'Medium'
+                        ? theme.colors.orange[5]
+                        : theme.colors.orange[3],
+                  borderRadius: '4px',
+                  color: '#fff',
+                  maxWidth: '12ch',
+                  padding: '4px',
+                  textAlign: 'center',
+                })}
+              >
+                {cell.getValue()}
+              </Box>
+            ),
           },
           {
             accessorFn: (row) => {
               //convert to Date for sorting and filtering
-              const sDay = new Date(row.startDate);
+              const sDay = new Date(row.dueDate);
               sDay.setHours(0, 0, 0, 0); // remove time from date (useful if filter by equals exact date)
               return sDay;
             },
-            id: 'startDate',
-            header: 'Start Date',
+            id: 'lastActivity',
+            header: 'Last Activity',
             filterVariant: 'date-range',
             sortingFn: 'datetime',
             enableColumnFilterModes: false, //keep this as only date-range filter with between inclusive filterFn
             Cell: ({ cell }) => cell.getValue()?.toLocaleDateString(), //render Date as a string
             Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
+          },
+          {
+            accessorFn: (row) => {
+              //convert to Date for sorting and filtering
+              const sDay = new Date(row.dueDate);
+              sDay.setHours(0, 0, 0, 0); // remove time from date (useful if filter by equals exact date)
+              return sDay;
+            },
+            id: 'dueDate',
+            header: 'Due Date',
+            filterVariant: 'date-range',
+            sortingFn: 'datetime',
+            enableColumnFilterModes: false, //keep this as only date-range filter with between inclusive filterFn
+            Cell: ({ cell }) => cell.getValue()?.toLocaleDateString(), //render Date as a string
+            Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
+          },
+          {
+            accessorKey: 'note', //hey a simple column for once
+            header: 'Note',
+            size: 370,
+            textAlign: 'center',
+          },
+          {
+            accessorFn: (row) => {
+              //convert to Date for sorting and filtering
+              const sDay = new Date(row.dueDate);
+              sDay.setHours(0, 0, 0, 0); // remove time from date (useful if filter by equals exact date)
+              return sDay;
+            },
+            id: 'creationDate',
+            header: 'Creation Date',
+            filterVariant: 'date-range',
+            sortingFn: 'datetime',
+            enableColumnFilterModes: false, //keep this as only date-range filter with between inclusive filterFn
+            Cell: ({ cell }) => cell.getValue()?.toLocaleDateString(), //render Date as a string
+            Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
+          },
+          {
+            accessorKey: 'incomingOutgoing',
+            header: 'Incoming/Outgoing',
+            size: 150,
+            filterVariant: 'select',
+            mantineFilterRangeSliderProps: {
+              color: 'indigo',
+            },
+            //custom conditional format and styling
+            Cell: ({ cell }) => (
+              <Box
+                sx={(theme) => ({
+                  backgroundColor:
+                    cell.getValue() === 'Incoming'
+                      ? theme.colors.blue[5]
+                        : theme.colors.green[5],
+                  borderRadius: '4px',
+                  color: '#fff',
+                  maxWidth: '12ch',
+                  padding: '4px',
+                  textAlign: 'center',
+                })}
+              >
+                {cell.getValue()}
+              </Box>
+            ),
           },
         ],
       },

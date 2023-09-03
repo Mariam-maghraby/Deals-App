@@ -199,14 +199,15 @@ const Example = () => {
             size: 90,
             filterVariant: 'autocomplete',
             Cell: ({ renderedCellValue, row }) => (
-              // renderedCellValue.map((item) => {
+              
+                
               <Box
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '16px',
                 }}
-              >
+              >              
                 <img
                   alt="avatar"
                   height={30}

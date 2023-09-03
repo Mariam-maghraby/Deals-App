@@ -13,13 +13,51 @@ const Example = () => {
   const columns = useMemo(
     () => [
       {
-        id: 'employee', //id used to define `group` column
-        header: 'Employee',
+        id: 'deal', //id used to define `group` column
+        header: 'Deal',
         columns: [
           {
+            accessorKey: 'salary',
+            header: 'Stage',
+            size: 200,
+            filterVariant: 'range-slider',
+            mantineFilterRangeSliderProps: {
+              color: 'indigo',
+              
+            },
+            //custom conditional format and styling
+            Cell: ({ cell }) => (
+              <Box
+                sx={(theme) => ({
+                  backgroundColor:
+                    cell.getValue() === 'lost'
+                      ? theme.colors.red[9]
+                      : cell.getValue() ==='Negotiation' 
+                      ? theme.colors.yellow[9]
+                      : cell.getValue() ==='Proposal' 
+                      ? theme.colors.green[9]
+                      : cell.getValue() ==='Proposal'
+                      ? theme.colors.orange[9]
+                      : theme.colors.blue[9],
+                  borderRadius: '4px',
+                  color: '#fff',
+                  maxWidth: '9ch',
+                  padding: '4px',
+                })}
+              >
+                {cell.getValue()?.toLocaleString?.('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })}
+              </Box>
+            ),
+          },
+          {
             accessorFn: (row) => `${row.firstName} ${row.lastName}`, //accessorFn used to join multiple data into a single cell
-            id: 'name', //id is still required when using accessorFn instead of accessorKey
-            header: 'Name',
+            id: 'assignee', //id is still required when using accessorFn instead of accessorKey
+            header: 'Assignee',
             size: 250,
             filterVariant: 'autocomplete',
             Cell: ({ renderedCellValue, row }) => (
@@ -54,7 +92,7 @@ const Example = () => {
         columns: [
           {
             accessorKey: 'salary',
-            header: 'Salary',
+            header: 'Value',
             size: 200,
             filterVariant: 'range-slider',
             mantineFilterRangeSliderProps: {

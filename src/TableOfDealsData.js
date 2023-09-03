@@ -80,7 +80,7 @@ const Example = () => {
             ),
           },
           {
-            accessorKey: 'salary',
+            accessorKey: 'budget',
             header: 'Value',
             size: 150,
             filterVariant: 'range-slider',
@@ -193,6 +193,29 @@ const Example = () => {
             textAlign: 'center',
           },
           {
+            accessorKey: 'avatar',
+            id: 'company', //id is still required when using accessorFn instead of accessorKey
+            header: 'Company',
+            size: 90,
+            filterVariant: 'autocomplete',
+            Cell: ({ renderedCellValue, row }) => (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                }}
+              >
+                <img
+                  alt="avatar"
+                  height={30}
+                  src={row.original.avatar}
+                  style={{ borderRadius: '50%' }}
+                />
+              </Box>
+            ),
+          },
+          {
             accessorFn: (row) => {
               //convert to Date for sorting and filtering
               const sDay = new Date(row.dueDate);
@@ -233,6 +256,62 @@ const Example = () => {
                 {cell.getValue()}
               </Box>
             ),
+          },
+          {
+            accessorKey: 'budget',
+            header: 'Client Budeget',
+            size: 150,
+            filterVariant: 'range-slider',
+            mantineFilterRangeSliderProps: {
+              color: 'indigo',
+              label: (value) =>
+                value?.toLocaleString?.('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                }),
+            },
+            //custom conditional format and styling
+            Cell: ({ cell }) => (
+              <Box
+                sx={(theme) => ({
+                  backgroundColor:
+                    cell.getValue() < 50_000
+                      ? theme.colors.red[9]
+                      : cell.getValue() >= 50_000 && cell.getValue() < 75_000
+                        ? theme.colors.yellow[9]
+                        : theme.colors.green[9],
+                  borderRadius: '4px',
+                  color: '#fff',
+                  maxWidth: '9ch',
+                  padding: '4px',
+                  textAlign: 'center',
+                })}
+              >
+                {cell.getValue()?.toLocaleString?.('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })}
+              </Box>
+            ),
+          },
+          {
+            accessorFn: (row) => {
+              //convert to Date for sorting and filtering
+              const sDay = new Date(row.dueDate);
+              sDay.setHours(0, 0, 0, 0); // remove time from date (useful if filter by equals exact date)
+              return sDay;
+            },
+            id: 'submissionDate',
+            header: 'Proposal Submission Date',
+            filterVariant: 'date-range',
+            sortingFn: 'datetime',
+            enableColumnFilterModes: false, //keep this as only date-range filter with between inclusive filterFn
+            Cell: ({ cell }) => cell.getValue()?.toLocaleDateString(), //render Date as a string
+            Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
           },
         ],
       },

@@ -11,7 +11,7 @@ const columns = [
     type: 'number',
     width: 170,
   },
-  { field: 'contacts', headerName: 'Contacts', width: 130 },
+  { field: 'contacts', headerName: 'Contacts', width: 130 , align:'center' },
   { field: 'clients', headerName: 'Clients', width: 70 },
   { field: 'priorty', headerName: 'Priorty', width: 70 },
   { field: 'lastContacted', headerName: 'Last Contacted', width: 120 },
@@ -36,7 +36,7 @@ const columns = [
 ];
 
 const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35},
   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
   { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
@@ -51,6 +51,7 @@ export default function DealsTable() {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
+        align="center"
         rows={rows}
         columns={columns}
         initialState={{

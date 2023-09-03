@@ -1,453 +1,230 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import NativeSelect from '@mui/material/NativeSelect';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { visuallyHidden } from '@mui/utils';
+import { useMemo } from 'react';
+import {
+  MRT_GlobalFilterTextInput,
+  MRT_ToggleFiltersButton,
+  MantineReactTable,
+  useMantineReactTable,
+} from 'mantine-react-table';
+import { Box, Button, Flex, Menu, Text, Title } from '@mantine/core';
+import { IconUserCircle, IconSend } from '@tabler/icons-react';
+import { data } from './makeData';
 
-function createData(name, stage, asigneee, contacts, clients, priorty, lastContacted, duedates, notes, opportunity, company, creationDate, incomingOutgoing, clientBudget, submissionDate, files) {
-  return {
-    name,
-    stage,
-    asigneee,
-    contacts,
-    clients,
-    priorty,
-    lastContacted,
-    duedates,
-    notes,
-    opportunity,
-    company,
-    creationDate,
-    incomingOutgoing,
-    clientBudget,
-    submissionDate,
-    files
-  };
-}
-
-const rows = [
-  createData('Deal 1', 'Discovery', '', 100000, '', 'High', 23 / 8 / 2021, 23 / 8 / 2021, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.', '', 'Company 1', 23 / 8 / 2021, 'Incoming', 100000, 23 / 8 / 2021, 'File 1'),
-
-];
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
-
-const headCells = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Name',
-  },
-  {
-    id: 'stage',
-    numeric: false,
-    disablePadding: false,
-    label: 'Stage',
-  },
-  {
-    id: 'asigneee',
-    numeric: false,
-    disablePadding: false,
-    label: 'asigneee',
-  },
-  {
-    id: 'carbs',
-    numeric: true,
-    disablePadding: false,
-    label: 'Carbs (g)',
-  },
-  {
-    id: 'protein',
-    numeric: true,
-    disablePadding: false,
-    label: 'Protein (g)',
-  },
-];
-
-function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
+const Example = () => {
+  const columns = useMemo(
+    () => [
+      {
+        id: 'employee', //id used to define `group` column
+        header: 'Employee',
+        columns: [
+          {
+            accessorFn: (row) => `${row.firstName} ${row.lastName}`, //accessorFn used to join multiple data into a single cell
+            id: 'name', //id is still required when using accessorFn instead of accessorKey
+            header: 'Name',
+            size: 250,
+            filterVariant: 'autocomplete',
+            Cell: ({ renderedCellValue, row }) => (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                }}
+              >
+                <img
+                  alt="avatar"
+                  height={30}
+                  src={row.original.avatar}
+                  style={{ borderRadius: '50%' }}
+                />
+                <span>{renderedCellValue}</span>
+              </Box>
+            ),
+          },
+          {
+            accessorKey: 'email', //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
+            enableClickToCopy: true,
+            header: 'Email',
+            size: 300,
+          },
+        ],
+      },
+      {
+        id: 'id',
+        header: 'Job Info',
+        columns: [
+          {
+            accessorKey: 'salary',
+            header: 'Salary',
+            size: 200,
+            filterVariant: 'range-slider',
+            mantineFilterRangeSliderProps: {
+              color: 'indigo',
+              label: (value) =>
+                value?.toLocaleString?.('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                }),
+            },
+            //custom conditional format and styling
+            Cell: ({ cell }) => (
+              <Box
+                sx={(theme) => ({
+                  backgroundColor:
+                    cell.getValue() < 50_000
+                      ? theme.colors.red[9]
+                      : cell.getValue() >= 50_000 && cell.getValue() < 75_000
+                      ? theme.colors.yellow[9]
+                      : theme.colors.green[9],
+                  borderRadius: '4px',
+                  color: '#fff',
+                  maxWidth: '9ch',
+                  padding: '4px',
+                })}
+              >
+                {cell.getValue()?.toLocaleString?.('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })}
+              </Box>
+            ),
+          },
+          {
+            accessorKey: 'jobTitle', //hey a simple column for once
+            header: 'Job Title',
+            filterVariant: 'multi-select',
+            size: 350,
+          },
+          {
+            accessorFn: (row) => {
+              //convert to Date for sorting and filtering
+              const sDay = new Date(row.startDate);
+              sDay.setHours(0, 0, 0, 0); // remove time from date (useful if filter by equals exact date)
+              return sDay;
+            },
+            id: 'startDate',
+            header: 'Start Date',
+            filterVariant: 'date-range',
+            sortingFn: 'datetime',
+            enableColumnFilterModes: false, //keep this as only date-range filter with between inclusive filterFn
+            Cell: ({ cell }) => cell.getValue()?.toLocaleDateString(), //render Date as a string
+            Header: ({ column }) => <em>{column.columnDef.header}</em>, //custom header markup
+          },
+        ],
+      },
+    ],
+    [],
   );
-}
 
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
-function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
-
-  return (
-    <>
-
-      <Toolbar
+  const table = useMantineReactTable({
+    columns,
+    data, //must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
+    enableColumnFilterModes: true,
+    enableColumnOrdering: true,
+    enableFacetedValues: true,
+    enableGrouping: true,
+    enablePinning: true,
+    enableRowActions: true,
+    enableRowSelection: true,
+    initialState: { showColumnFilters: true, showGlobalFilter: true },
+    paginationDisplayMode: 'pages',
+    positionToolbarAlertBanner: 'bottom',
+    mantinePaginationProps: {
+      radius: 'xl',
+      size: 'lg',
+    },
+    mantineSearchTextInputProps: {
+      placeholder: 'Search Employees',
+    },
+    renderDetailPanel: ({ row }) => (
+      <Box
         sx={{
-          pl: { sm: 2 },
-          pr: { xs: 1, sm: 1 },
-          ...(numSelected > 0 && {
-            bgcolor: (theme) =>
-              alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-          }),
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          gap: '16px',
+          padding: '16px',
         }}
       >
-        {numSelected > 0 ? (
-          <Typography
-            sx={{ flex: '1 1 100%' }}
-            color="inherit"
-            variant="subtitle1"
-            component="div"
-          >
-            {numSelected} selected
-          </Typography>
-        ) : (
-          <Typography
-            sx={{ flex: '1 1 100%' }}
-            variant="h6"
-            id="tableTitle"
-            component="div"
-          >
-            DEALS
-          </Typography>
-        )}
-        <FormControl>
-          <InputLabel variant="standard" htmlFor="uncontrolled-native">
-            This Month
-          </InputLabel>
-          <NativeSelect
-            defaultValue={30}
-            inputProps={{
-              name: 'age',
-              id: 'uncontrolled-native',
-            }}
-          >
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
-          </NativeSelect>
-        </FormControl>
-        <FormControl>
-          <InputLabel variant="standard" htmlFor="uncontrolled-native">
-            All Companies
-          </InputLabel>
-          <NativeSelect
-            defaultValue={30}
-            inputProps={{
-              name: 'age',
-              id: 'uncontrolled-native',
-            }}
-          >
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
-          </NativeSelect>
-        </FormControl>
-        <FormControl>
-          <InputLabel variant="standard" htmlFor="uncontrolled-native">
-            All Assignee
-          </InputLabel>
-          <NativeSelect
-            defaultValue={30}
-            inputProps={{
-              name: 'age',
-              id: 'uncontrolled-native',
-            }}
-          >
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
-          </NativeSelect>
-        </FormControl>
-        <FormControl>
-          <InputLabel variant="standard" htmlFor="uncontrolled-native">
-            Tags
-          </InputLabel>
-          <NativeSelect
-            defaultValue={30}
-            inputProps={{
-              name: 'age',
-              id: 'uncontrolled-native',
-            }}
-          >
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
-          </NativeSelect>
-        </FormControl>
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Filter list">
-            <IconButton>
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-      </Toolbar>
-    </>
-  );
-}
+        <img
+          alt="avatar"
+          height={200}
+          src={row.original.avatar}
+          style={{ borderRadius: '50%' }}
+        />
+        <Box sx={{ textAlign: 'center' }}>
+          <Title>Signature Catch Phrase:</Title>
+          <Text>&quot;{row.original.signatureCatchPhrase}&quot;</Text>
+        </Box>
+      </Box>
+    ),
+    renderRowActionMenuItems: () => (
+      <>
+        <Menu.Item icon={<IconUserCircle />}>View Profile</Menu.Item>
+        <Menu.Item icon={<IconSend />}>Send Email</Menu.Item>
+      </>
+    ),
+    renderTopToolbar: ({ table }) => {
+      const handleDeactivate = () => {
+        table.getSelectedRowModel().flatRows.map((row) => {
+          alert('deactivating ' + row.getValue('name'));
+        });
+      };
 
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
+      const handleActivate = () => {
+        table.getSelectedRowModel().flatRows.map((row) => {
+          alert('activating ' + row.getValue('name'));
+        });
+      };
+
+      const handleContact = () => {
+        table.getSelectedRowModel().flatRows.map((row) => {
+          alert('contact ' + row.getValue('name'));
+        });
+      };
+
+      return (
+        <Flex p="md" justify="space-between">
+          <Flex gap="xs">
+            {/* import MRT sub-components */}
+            <MRT_GlobalFilterTextInput table={table} />
+            <MRT_ToggleFiltersButton table={table} />
+          </Flex>
+          <Flex sx={{ gap: '8px' }}>
+            <Button
+              color="red"
+              disabled={!table.getIsSomeRowsSelected()}
+              onClick={handleDeactivate}
+              variant="filled"
+            >
+              Deactivate
+            </Button>
+            <Button
+              color="green"
+              disabled={!table.getIsSomeRowsSelected()}
+              onClick={handleActivate}
+              variant="filled"
+            >
+              Activate
+            </Button>
+            <Button
+              color="blue"
+              disabled={!table.getIsSomeRowsSelected()}
+              onClick={handleContact}
+              variant="filled"
+            >
+              Contact
+            </Button>
+          </Flex>
+        </Flex>
+      );
+    },
+  });
+
+  return <MantineReactTable table={table} />;
 };
 
-export default function EnhancedTable() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(rows, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [order, orderBy, page, rowsPerPage],
-  );
-
-  return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {visibleRows.map((row, index) => {
-                const isItemSelected = isSelected(row.name);
-                const labelId = `enhanced-table-checkbox-${index}`;
-
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.name)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.name}
-                    selected={isItemSelected}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          'aria-labelledby': labelId,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="none"
-                    >
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
-                  </TableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
-    </Box>
-  );
-}
+export default Example;

@@ -17,10 +17,15 @@ const Example = () => {
         header: 'Deal',
         columns: [
           {
-            accessorKey: 'salary',
+            accessorKey: 'dealName', //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
+            header: 'Name',
+            size: 70,
+          },
+          {
+            accessorKey: 'stage',
             header: 'Stage',
-            size: 200,
-            filterVariant: 'range-slider',
+            size: 150,
+            filterVariant: 'select',
             mantineFilterRangeSliderProps: {
               color: 'indigo',
               
@@ -30,19 +35,20 @@ const Example = () => {
               <Box
                 sx={(theme) => ({
                   backgroundColor:
-                    cell.getValue() === 'lost'
+                    cell.getValue() === 'Lost'
                       ? theme.colors.red[9]
                       : cell.getValue() ==='Negotiation' 
-                      ? theme.colors.yellow[9]
+                      ? theme.colors.violet[9]
                       : cell.getValue() ==='Proposal' 
                       ? theme.colors.green[9]
-                      : cell.getValue() ==='Proposal'
-                      ? theme.colors.orange[9]
+                      : cell.getValue() ==='Won'
+                      ? theme.colors.yellow[9]
                       : theme.colors.blue[9],
                   borderRadius: '4px',
                   color: '#fff',
-                  maxWidth: '9ch',
+                  maxWidth: '12ch',
                   padding: '4px',
+                  textAlign:'center',
                 })}
               >
                 {cell.getValue()?.toLocaleString?.('en-US', {
@@ -58,7 +64,7 @@ const Example = () => {
             accessorFn: (row) => `${row.firstName} ${row.lastName}`, //accessorFn used to join multiple data into a single cell
             id: 'assignee', //id is still required when using accessorFn instead of accessorKey
             header: 'Assignee',
-            size: 250,
+            size: 200,
             filterVariant: 'autocomplete',
             Cell: ({ renderedCellValue, row }) => (
               <Box
@@ -175,7 +181,7 @@ const Example = () => {
       size: 'lg',
     },
     mantineSearchTextInputProps: {
-      placeholder: 'Search Employees',
+      placeholder: 'Search Deals...',
     },
     renderDetailPanel: ({ row }) => (
       <Box

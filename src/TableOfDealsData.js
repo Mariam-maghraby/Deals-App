@@ -6,7 +6,7 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table';
 import { Box, Button, Flex, Menu, Text, Title } from '@mantine/core';
-import { IconUserCircle, IconSend } from '@tabler/icons-react';
+import { IconPhoneCalling, IconShoppingBag } from '@tabler/icons-react';
 import { data } from './makeData';
 
 const Example = () => {
@@ -194,6 +194,31 @@ const Example = () => {
           },
           {
             accessorKey: 'avatar',
+            id: 'opportunitySpace', //id is still required when using accessorFn instead of accessorKey
+            header: 'Opportunity Space',
+            size: 90,
+            filterVariant: 'autocomplete',
+            Cell: ({ renderedCellValue, row }) => (
+              // renderedCellValue.map((item) => {
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                }}
+              >
+                <img
+                  alt="avatar"
+                  height={30}
+                  src={renderedCellValue}
+                  style={{ borderRadius: '50%' }}
+                />
+              </Box>
+              // }
+            ),
+          },
+          {
+            accessorKey: 'avatar',
             id: 'company', //id is still required when using accessorFn instead of accessorKey
             header: 'Company',
             size: 90,
@@ -245,7 +270,7 @@ const Example = () => {
                   backgroundColor:
                     cell.getValue() === 'Incoming'
                       ? theme.colors.blue[5]
-                        : theme.colors.green[5],
+                      : theme.colors.green[5],
                   borderRadius: '4px',
                   color: '#fff',
                   maxWidth: '12ch',
@@ -363,8 +388,8 @@ const Example = () => {
     ),
     renderRowActionMenuItems: () => (
       <>
-        <Menu.Item icon={<IconUserCircle />}>View Profile</Menu.Item>
-        <Menu.Item icon={<IconSend />}>Send Email</Menu.Item>
+        <Menu.Item icon={<IconShoppingBag />}>View Deal</Menu.Item>
+        <Menu.Item icon={<IconPhoneCalling />}>Contact</Menu.Item>
       </>
     ),
     renderTopToolbar: ({ table }) => {

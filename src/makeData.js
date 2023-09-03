@@ -8,13 +8,17 @@ export const data = [
         email: 'Joanny_Carter@yahoo.com',
         budget: 57752,
         priority: 'High',
-        note:'This is a note',
+        note: 'This is a note',
         dueDate: '2022-12-28T20:59:36.586Z',
         stage: 'Won',
         incomingOutgoing: 'Incoming',
         signatureCatchPhrase: 'Front-line logistical service-desk',
         avatar:
             'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/528.jpg',
+        space: ['https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        ]
     },
     {
         dealName: 'Deal 2',
@@ -23,13 +27,17 @@ export const data = [
         email: 'Webster.Monahan68@yahoo.com',
         budget: 47029,
         priority: 'High',
-        note:'This is a note',
+        note: 'This is a note',
         dueDate: '2023-01-04T08:03:36.832Z',
         stage: 'Proposal',
         incomingOutgoing: 'Incoming',
         signatureCatchPhrase: 'Stand-alone non-volatile encoding',
         avatar:
             'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/461.jpg',
+        space: ['https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        ]
 
     },
     {
@@ -39,13 +47,17 @@ export const data = [
         email: 'Roma_Nicolas7@hotmail.com',
         budget: 55602,
         priority: 'Low',
-        note:'This is a note',
+        note: 'This is a note',
         dueDate: '2022-02-07T13:34:22.224Z',
         stage: 'Lost',
         incomingOutgoing: 'Incoming',
         signatureCatchPhrase: 'Digitized asynchronous definition',
         avatar:
             'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/787.jpg',
+        space: ['https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        ]
     },
     {
         dealName: 'Deal 4',
@@ -54,13 +66,17 @@ export const data = [
         email: 'Perry.Ferry@yahoo.com',
         budget: 88782,
         priority: 'High',
-        jnote:'This is a note',
+        jnote: 'This is a note',
         dueDate: '2022-10-02T00:14:02.192Z',
         stage: 'Discovery',
         incomingOutgoing: 'Incoming',
         signatureCatchPhrase: 'Automated next generation knowledge base',
         avatar:
             'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/407.jpg',
+        space: ['https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        ]
     },
     {
         dealName: 'Deal 5',
@@ -69,13 +85,17 @@ export const data = [
         email: 'Alf_Lehner33@gmail.com',
         budget: 95101,
         priority: 'Medium',
-        note:'This is a note',
+        note: 'This is a note',
         dueDate: '2022-11-14T10:56:33.026Z',
         stage: 'Negotiation',
         incomingOutgoing: 'Incoming',
         signatureCatchPhrase: 'Ameliorated clear-thinking capacity',
         avatar:
             'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/696.jpg',
+        space: ['https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        ]
     },
     {
         dealName: 'Deal 6',
@@ -84,13 +104,17 @@ export const data = [
         email: 'Emerson42@gmail.com',
         budget: 96104,
         priority: 'Low',
-        note:'This is a note',
+        note: 'This is a note',
         dueDate: '2022-08-12T22:15:41.531Z',
         stage: 'Discovery',
         incomingOutgoing: 'Incoming',
         signatureCatchPhrase: 'Down-sized scalable application',
         avatar:
             'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+        space: ['https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        ]
     },
     {
         dealName: 'Deal 7',
@@ -99,13 +123,18 @@ export const data = [
         email: 'Jane_Hoeger42@gmail.com',
         budget: 64532,
         priority: 'High',
-        note:'This is a note',
+        note: 'This is a note',
         dueDate: '2022-06-03T16:42:52.698Z',
         stage: 'Won',
         incomingOutgoing: 'Outgoing',
         signatureCatchPhrase: 'Face to face grid-enabled encryption',
         avatar:
             'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+        space: ['https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        ]
+
     },
     {
         dealName: 'Deal 8',
@@ -114,13 +143,17 @@ export const data = [
         email: 'Bo_Brakus@hotmail.com',
         budget: 26096,
         priority: 'High',
-        note:'This is a note',
+        note: 'This is a note',
         dueDate: '2022-10-17T21:12:54.687Z',
         stage: 'Won',
         incomingOutgoing: 'Incoming',
         signatureCatchPhrase: 'Implemented bottom-line algorithm',
         avatar:
             'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/914.jpg',
+        space: ['https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        ]
     },
     {
         dealName: 'Deal 9',
@@ -129,13 +162,17 @@ export const data = [
         email: 'Karson2@gmail.com',
         budget: 72692,
         priority: 'High',
-        note:'This is a note',
+        note: 'This is a note',
         dueDate: '2022-09-13T11:55:16.045Z',
         stage: 'Won',
         incomingOutgoing: 'Outgoing',
         signatureCatchPhrase: 'Open-architected tangible moderator',
         avatar:
             'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/151.jpg',
+        space: ['https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        ]
     },
     {
         dealName: 'Deal 10',
@@ -144,12 +181,16 @@ export const data = [
         email: 'Quinton13@hotmail.com',
         budget: 89317,
         priority: 'High',
-        note:'This is a note',
+        note: 'This is a note',
         dueDate: '2022-07-01T07:29:03.182Z',
         stage: 'Won',
         incomingOutgoing: 'Outgoing',
         signatureCatchPhrase: 'Focused intermediate groupware',
         avatar:
             'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        space: ['https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/305.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1171.jpg',
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/102.jpg',
+        ]
     },
 ];
